@@ -39,7 +39,7 @@ class TimerController {
         if isOn == false { // !isOn
             timeRemaining = time
             DispatchQueue.main.async {
-//                self.secondTick()
+                self.secondTick()
                 self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (_) in
                     self.secondTick()
                 })
@@ -53,5 +53,12 @@ class TimerController {
             timer?.invalidate()
             delegate?.timerStopped()
         }
+    }
+    
+    func timeAsString() -> String {
+        let timeRemaining = Int(self.timeRemaining ?? 20*60)
+        let minutesLeft = timeRemaining / 60
+        let secondsLeft = timeRemaining - (minutesLeft*60)
+        return String(format: "%02d : %02d", arguments: [minutesLeft,secondsLeft])
     }
 }
